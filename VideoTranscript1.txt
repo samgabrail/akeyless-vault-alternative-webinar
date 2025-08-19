@@ -1,0 +1,777 @@
+0:00
+if you've known me for any length of
+0:01
+time you'll know how much I like Hashi
+0:04
+Corb Vault however recently I started to
+0:07
+look into Aus and I'm quite impressed by
+0:09
+what it has to offer in my opinion
+0:12
+achillus is the top alternative today to
+0:15
+Hash cor vault in this video I'll walk
+0:17
+you through 10 unique achillus features
+0:20
+that are not found in hash cor Vault my
+0:23
+name is Sam Gabriel and let's get
+0:24
+started first up is the idea of
+1. Automated Rotated Secrets
+0:27
+automating rotated secrets and rotated
+0:30
+Secrets is a concept not available in
+0:33
+hasher Corp Fall explicitly and the idea
+0:36
+here is that this is the secret that
+0:37
+aulus uses to connect to an external
+0:41
+third-party service so if you go to new
+0:44
+and look for rotated secret you'll see
+0:47
+that there are a number of databases
+0:49
+that ailles can connect to Cassandra
+0:51
+redis red shift snowflake clouds your
+0:55
+three major clouds operating systems
+0:57
+infrastructure like Docker hub ldap or
+1:00
+web so once you have this connection in
+1:03
+place you can rotate this secret so if I
+1:06
+look at the Azure rotated secret here
+1:09
+for example here's my credentials client
+1:13
+ID tenant ID client secret and so on and
+1:16
+now what I can do is I can manually
+1:19
+rotate this
+1:20
+secret which hasore for the most part
+1:22
+can do as well in terms of its
+1:24
+connection to that third party but uh
+1:27
+more than that you can hear in a keyless
+1:30
+use an automation mechanism where you
+1:33
+can rotate the secret on an interval
+1:36
+base so you can see here I'm rotating
+1:38
+every 90 days you can change that as
+1:41
+well every 90 days at 10:00 is what I'm
+1:43
+doing here or you can do manual only
+1:46
+right this is really key because we're
+1:48
+trying to make sure that we don't have
+1:50
+any kind of long lived credentials of
+1:53
+any kind even the ones that achillus has
+1:55
+to those external third party systems so
+1:59
+automated rotate Secrets is really key
+2:01
+here continuing our conversation around
+2. RDP, Docker Hub, Ping Client - Dynamic Secrets
+2:04
+short-lived credentials Dynamic secrets
+2:08
+are key right and of course hasor Vault
+2:11
+has a bunch of dynamic Secrets Aus as
+2:13
+well but the more I find connections
+2:17
+into third party systems to create these
+2:19
+Dynamic Secrets the the better off we
+2:22
+all are and I can see here there are
+2:24
+quite a bit of dynamic secrets that
+2:26
+ailles has RDP dockerhub pink clim stand
+2:30
+out as three that are not available in
+2:33
+hash cor Vault I'm quite impressed with
+2:36
+the actual achillus UI and how easy it
+2:38
+is to create things just with the UI as
+2:41
+you can see here now of course it's not
+2:43
+my preferred way of using any kind of
+2:47
+software you always want to use
+2:49
+infrastructure code and Aus of course
+2:51
+has a terraform provider that you can
+2:54
+use but just know that the more we see
+2:57
+Dynamic Secrets such as RDP as we see
+3:01
+here we've got a ping client I see
+3:04
+artifactory Chef infra dockerhub and so
+3:07
+on the better off we are because again
+3:10
+we don't want any longlived credentials
+3:13
+in our environment third on our list is
+3. Custom Targets for Dynamic Secrets
+3:15
+custom targets and custom targets really
+3:18
+simplify resource and credential
+3:21
+management organizing endpoints in ayus
+3:24
+and eliminating manual credential
+3:27
+updates it really helps with operation
+3:30
+efficiency which is not available in
+3:32
+hash cor Vault but as you can see here
+3:36
+what you do is you create a Target and
+3:39
+there are multiple targets that we saw
+3:41
+before for the different third-party
+3:43
+systems that we have here so you create
+3:45
+the target ahead of time and once you
+3:47
+create the target then you can create
+3:50
+other items and if you see here this AWS
+3:54
+Target if I look at the associated items
+3:56
+I have a dynamic secret I have a
+3:58
+universal Secret connector I have
+4:00
+rotated secrets so once you've
+4:03
+identified this target now you can
+4:05
+associate these items with so from a
+4:07
+configuration perspective it makes
+4:09
+things much easier for me so you can see
+4:12
+Azure same thing I have a bunch of items
+4:14
+associated with it my postgress database
+4:18
+I probably don't have anything here just
+4:20
+yet but again if I want to create a
+4:21
+dynamic secret for example I can go to
+4:24
+items Dynamic
+4:26
+secret and let's say we said post so
+4:31
+postgress and then from here you can see
+4:34
+the target mode you can choose an
+4:36
+existing Target or you can explicitly
+4:38
+specify Target properties so it's easier
+4:41
+to just use an existing Target that can
+4:44
+be used over and over again for for
+4:47
+different things in this case I'm using
+4:48
+it in a dynamic secret for my database
+4. Secrets Sharing
+4:51
+next we'll talk about secret sharing I
+4:53
+like this feature you can go into any of
+4:55
+the secrets that you have let's say this
+4:58
+static secret that I have here and at
+5:00
+the top you can click share and provide
+5:04
+you an email address of one of your
+5:06
+colleagues for
+5:08
+example and uh you can specify how long
+5:11
+you want the secret to be valid for so
+5:13
+let's say 1 hour uh you can also say one
+5:16
+time View and get a sharable link and
+5:19
+this link is available for the next 1
+5:20
+hour so if I open an incognito window
+5:23
+and copy this let's take a
+5:27
+look says someone shared an item with
+5:29
+you on a keyless platform to view it
+5:31
+please verify your email address let me
+5:33
+give it a wrong email address let just
+5:36
+to see what
+5:41
+happens a link to the secret has been
+5:43
+sent to your email let's check my email
+5:46
+real quick and nothing shows up in my
+5:49
+email so let's do this again with a
+5:52
+proper
+5:58
+email and now see an email and there's a
+6:02
+link in the email takes me to this
+6:05
+site and I can
+6:08
+view I can view this secret right
+6:11
+here and I don't see anything else in
+6:14
+Ailes so it was just that secret that
+6:16
+was shared with me so this is a really
+6:18
+really cool feature now let's take a
+5. Universal Identity UID
+6:21
+look at my favorite feature in achilas
+6:23
+and this is the universal identity that
+6:26
+really solves that secret zero problem
+6:28
+that you might into for on Prem
+6:31
+deployments now Vault or hash cor
+6:34
+vault's solution to that is using appol
+6:37
+with a vault agent and I have a few
+6:40
+videos talking about that you can check
+6:41
+out but there are some issues with that
+6:45
+when it comes to rebooting the agent and
+6:47
+and stuff like that so ailis actually
+6:49
+solves this problem with universal
+6:52
+Identity or
+6:53
+uid so you can quickly look here if you
+6:56
+go under authentication users and off
+6:58
+methods click new Universal identity you
+7:02
+can go ahead and configure that um and
+7:05
+I'm probably going to have a separate
+7:07
+video talking about uid and giving a
+7:09
+demo but just know that this is the flow
+7:12
+and it's quite simple an admin creates a
+7:15
+new uid off method just like I just
+7:17
+showed in the previous screen through
+7:19
+the Aila SAS and then the Aila SAS will
+7:23
+respond with an acknowledgement of
+7:24
+course and then the admin generates this
+7:28
+initial uid D token we'll call it U
+7:31
+token and loads it in the
+7:34
+application and then this is the client
+7:36
+or the application in this case runs the
+7:38
+off command using that uid init token
+7:41
+that we started with the SAS responds
+7:44
+with a jot token we'll call it the T
+7:46
+token and then the client runs commands
+7:49
+using this T token and then you can see
+7:51
+here is a rotate uid token at some point
+7:54
+the client rotates this uid using that U
+7:57
+token and then it gets act plus A New U
+8:01
+token and then continues to run off
+8:03
+commands with this new U token and then
+8:06
+we keep rotating that initial token of
+8:09
+course gets rotated as we go along but
+8:12
+in case of a a reboot or something like
+8:14
+that that's not a problem we continue to
+8:17
+work seamlessly so once again I'll
+8:19
+create a video separately just talking
+8:21
+about uid but this is an excellent
+8:23
+feature excellent solution to that
+8:25
+secret zero problem for on premises
+8:28
+environments where the platform doesn't
+8:30
+give an identity to the resources that
+8:32
+it spins up something like VMware for
+8:35
+example doesn't give you an identity
+8:37
+whereas the clouds of course like AWS or
+8:40
+Azure gcp gives identities to the
+8:43
+resources that they spin up in number
+6. Password Manager
+8:46
+six we have a password manager from Aus
+8:50
+and it has a mobile app for iOS you can
+8:54
+see on the screen here and there's one
+8:56
+for Android so that's that's really cool
+9:00
+they also have a Chrome extension an
+9:03
+edge extension and also a Firefox
+9:06
+extension so you can actually use this
+9:09
+as your personal password manager and
+9:13
+use your personal secrets in here that
+9:15
+will not be available to anybody else so
+9:18
+you can add new items I have my keyless
+9:20
+admin email password here as well I can
+9:23
+add favorites uh you can also access the
+9:26
+corporate secrets from here so if I go
+9:28
+back and look at my hello secret I can
+9:30
+view it directly
+9:32
+here in addition to that I can actually
+9:36
+for AWS I can launch if I show the value
+9:39
+here this will show me a temporary
+9:43
+Dynamic secret for accessing AWS with a
+9:47
+username and password also an access key
+9:49
+ID and a secret access key see it
+9:51
+expires in 3 hours I can also launch
+9:55
+this directly so what this will do it
+9:57
+will launch the AWS con
+10:00
+and log me in with those Dynamic
+10:02
+temporary credentials directly which is
+10:04
+pretty
+10:06
+neat as you can see here I'm logging in
+10:09
+to the AWS
+10:10
+console and if I look at the top here is
+10:14
+my temporary user temp. Sam Gabriel
+10:19
+teen8 so you can see that I'm already in
+10:21
+here with those credentials straight
+10:23
+from that password manager so it's a
+10:25
+really great addition that achillus has
+10:27
+and supported directly by achillus
+7. Secure Remote Access
+10:30
+next is secure remote access which is
+10:33
+not available in Hashi cor vault as the
+10:36
+Vault product but it is available in
+10:38
+hash cor boundary and there is some
+10:41
+integration between of course boundary
+10:44
+and Vault but I like how this is a
+10:46
+license feature in achillus and pretty
+10:50
+much integrated in the achillus product
+10:52
+as a whole and as you can see here you
+10:55
+can expose different access to different
+10:59
+resources I have SSH to a couple of
+11:02
+resources postgress SQL I can directly
+11:05
+access a database RDP into a Windows
+11:07
+machine and also Azure portal so I can
+11:12
+quickly SSH into one of my target
+11:15
+machines here as this one and go in and
+11:17
+get a
+11:20
+CLI and I'm already connected here and
+11:24
+of course I can go into this dat
+11:27
+postgress database as well can connect
+11:30
+through with a web
+11:39
+portal and you kind of get the idea
+11:46
+here and now I'm in a Windows machine as
+11:49
+you can see so again it's great to see
+11:51
+secure mode access as part of the Achila
+11:54
+solution well integrated into the
+11:57
+product coming in at number eight is
+8. Automatic Secrets Migration
+12:00
+automatic Secrets migration and achilas
+12:03
+does a great job in helping us to
+12:05
+migrate from other secret managers and
+12:07
+if you go into your gateway and go under
+12:10
+automatic migration there's a list of
+12:12
+different secret managers you can
+12:14
+migrate from into Aus here's AWS secret
+12:18
+manager for example if you click add you
+12:21
+can follow the instructions here pretty
+12:23
+simple and you can start migrating from
+12:26
+ads Secrets manager I had to write an
+12:29
+actual script a python script to migrate
+12:32
+from AWS secret manager over to hashr
+12:35
+Vault a while ago so it's nice to see
+12:36
+this already done for us in a kilus
+12:39
+there is of course active directory
+12:41
+Azure key Vault gcp Secrets manager
+12:43
+kubernetes secrets and hash cor vault as
+12:46
+well so if you want to migrate from hash
+12:48
+cor Vault you can go ahead and and do
+12:51
+that one password server in inventory
+12:54
+and so on so kilas did a really good job
+12:57
+in helping us to migrate from any of
+13:00
+these secrets managers over to
+13:02
+ailles next on our list is the universal
+9. Universal Secrets Connector
+13:05
+Secrets connector think of it as a
+13:08
+manager of managers now you can have
+13:11
+keyless access multiple other Secrets
+13:14
+managers like AWS Secrets manager for
+13:16
+example and there are some use cases
+13:19
+where you have other teams that just
+13:22
+can't use Aus for example and they have
+13:24
+to use AWS Secrets manager so we can
+13:28
+still have a two-way sync between those
+13:31
+Secrets managers so what you can do is
+13:34
+you can go under items and new Universal
+13:37
+Secrets connector there is support for
+13:39
+AWS Azure gcp and kubernetes secrets so
+13:43
+AWS for example you select that and you
+13:45
+go through and apply the configuration I
+13:49
+already have something running so let's
+13:50
+go ahead and take a look under
+13:55
+AWS and view all secrets you see that I
+13:58
+already have two Secrets secret one and
+14:01
+two we can view secret one fuar secret
+14:06
+2 my secret and if I open my AWS
+14:11
+console I can also see the same thing
+14:15
+here
+14:17
+Fubar and secret 2 I've
+14:21
+got my secret and it is a two-way sync
+14:25
+so if I go ahead and decide to delete
+14:27
+secret 2 for example
+14:41
+that will show up that I've actually
+14:43
+deleted it I've deleted a secret from
+14:45
+AWS secret manager and it's reflected
+14:48
+here in Aus I can also create a new
+14:51
+secret let's call it secret
+14:54
+3 and let's give it a value of
+15:04
+let's give it a key value pair of
+15:08
+my new
+15:12
+secret save
+15:16
+that and now let's go to
+15:20
+AWS and already we see secret 3 show up
+15:23
+here retrieve secret value and my new
+15:26
+secret is available so we can see we
+15:29
+have a two-way sync between Achilles and
+15:32
+the other secret managers that it
+15:33
+supports which is great for some of
+15:36
+those use cases that I mentioned earlier
+10. Reporting
+15:39
+finally we come to our last feature in
+15:42
+ailles and that is the reporting feature
+15:45
+I mentioned that I really like the
+15:47
+keyless UI and the team put a lot of
+15:49
+effort into the frontend UI and out of
+15:52
+the box Ailes gives you a lot of
+15:55
+analytics that you can see here that is
+15:57
+not available in hash cor vault you'd
+15:59
+have to send that to Splunk for example
+16:01
+or some other monitoring tool out of the
+16:04
+box you can see quite a lot of things in
+16:06
+Aus you still might want to send logs
+16:08
+over and metrics to some other system
+16:12
+that you might have for sure but out of
+16:13
+the box you can already see quite a lot
+16:15
+of things so analytics items you can see
+16:18
+total items we have here current request
+16:21
+location you can see in the last week
+16:23
+for example where the requests were
+16:24
+coming from requests by action type
+16:27
+let's see the last week we some of the
+16:29
+different requests that were coming
+16:30
+through request volume response time can
+16:34
+also look at certificates uh what
+16:36
+certificates are expired high risk
+16:39
+medium risk low risk healthy total
+16:41
+number of certificates in the
+16:44
+environment you can take a look at the
+16:46
+audit logs as well so I can see every
+16:49
+single audit log I can filter through
+16:51
+here and go in and take a closer look at
+16:54
+all my audit logs straight from the UI
+16:58
+what also love is the event center you
+17:01
+can go into open Event Center and you
+17:04
+can see all the different events that
+17:06
+have happened and I can filter here for
+17:10
+example and see certificates that are
+17:12
+about to expire and filter on that and
+17:15
+see this particular certificate that's
+17:16
+about to expire you can also see some of
+17:19
+your usage reports as well with some
+17:22
+pretty graphs so it's really nice to see
+17:25
+this available out of the box as we've
+Wrap-Up
+17:27
+seen ayus is a compelling alternative to
+17:30
+Hash cor Vault with its SAS first
+17:33
+approach I encourage you to take a
+17:35
+closer look at Aus I have two videos one
+17:37
+is a general demo of all the achilas
+17:40
+features and the other one talks about
+17:42
+DFC which is their patented technology
+17:44
+that allows you to trust the SAS Secrets
+17:47
+manager I find it quite compelling thank
+17:50
+you for watching

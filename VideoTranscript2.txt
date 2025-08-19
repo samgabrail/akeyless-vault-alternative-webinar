@@ -1,0 +1,731 @@
+0:00
+is hashicorp Vault really the best
+0:02
+option for Secrets management or is
+0:05
+there a smarter more cost-effective
+0:07
+alternative vault is powerful but let's
+0:10
+be honest it comes with complexity High
+0:13
+licensing costs and the Steep learning
+0:15
+curve setting up clusters managing
+0:18
+replication and configuring policies can
+0:20
+be a headache and as your infrastructure
+0:23
+scales so do the costs and operational
+0:26
+burdens what if there was a way to
+0:28
+simplify security with without
+0:30
+sacrificing control in this video we're
+0:32
+comparing Hashi cor Vault with Aus
+0:35
+breaking down architecture Secrets
+0:37
+management authentication and access
+0:40
+policies to show you how a keyless can
+0:43
+streamline security and cut costs if
+0:46
+you're looking for a vault alternative
+0:47
+that's easier to manage and more budget
+0:49
+friendly stick around let's get started
+Agenda
+0:52
+in this demo I really want to compare
+0:54
+the following items the first is the
+0:57
+architecture between Achilles and hash
+1:00
+Vault then we're going to take a look at
+1:02
+the secrets engines that's what it's
+1:03
+called in Vault but in reality these are
+1:06
+really what secrets that we have in both
+1:10
+products then we're going to talk about
+1:12
+the authentication methods that's how we
+1:14
+can access either a keyless or vault
+1:17
+then we'll talk about policies and
+1:19
+access rules which really is the
+1:21
+authorization mechanisms into those
+1:23
+systems and finally as a bonus at the
+1:25
+very end we're going to talk about
+1:26
+secure remote access so stick till the
+1:30
+end to learn about that here I have both
+Architecture
+1:33
+products side by side a keyless
+1:35
+architecture on the left and the Vault
+1:37
+architecture on the right and when I
+1:39
+talk about architecture I'm really
+1:41
+talking about architecture in terms of
+1:43
+scale let's start with Vault and Vault
+1:47
+has two mechanisms for replication the
+1:50
+first is called performance replication
+1:52
+and the second is disaster recovery or
+1:55
+Dr replication for short so the first
+1:58
+thing you want to think of is where the
+2:01
+applications live and you want to have a
+2:04
+vault cluster wherever the application
+2:07
+that you have lives so if you have an
+2:09
+application on the east coast and one on
+2:11
+the west coast and maybe some
+2:13
+applications in central so you need a
+2:15
+cluster in each one of those regions and
+2:17
+then you can use performance replication
+2:19
+to act as an active active active kind
+2:22
+of setup for all your Vault clusters and
+2:25
+then you have replicating secrets across
+2:28
+for static secrets you can't replicate
+2:32
+Dynamic Secrets because we have the
+2:35
+assumption that each application will
+2:37
+consume secrets from its local cluster
+2:39
+there's also the idea of disaster
+2:41
+recovery and you can have a disaster
+2:43
+recovery cluster in region or across
+2:46
+region and of course there's a whole lot
+2:49
+of design considerations that has to be
+2:51
+put into place as you're architecting
+2:53
+this solution and understanding your RPO
+2:55
+your RTO how your application behaves
+2:59
+and how it's set up up and what is
+3:01
+acceptable from a business perspective
+3:04
+so as you can see it can get really
+3:05
+complicated really fast but on top of
+3:07
+that it is pretty pricey every cluster
+3:10
+you have to pay for both the hardware
+3:13
+that you're standing up in these regions
+3:16
+plus of course the additional licensing
+3:19
+that you have to pay hashy for now let's
+3:21
+shift gears to Aus and on the left hand
+3:24
+side as you can see we've got ayus and
+3:27
+you can see external environment public
+3:29
+network
+3:30
+so ayus is made up of the backend
+3:33
+SAS and you can see it here on the left
+3:36
+hand side and then what we call ayus
+3:39
+gateways so you'll have an ayus Gateway
+3:42
+in every private Network that you have
+3:45
+so you might have applications that run
+3:47
+in particular regions in
+3:50
+AWS and you might have some on Prem
+3:53
+applications maybe something in Azure or
+3:56
+gcp so you're going to stand up a
+4:00
+Gateway in every one of those private
+4:02
+networks that you own and the achilas
+4:05
+Gateway is a very lightweight stateless
+4:10
+application that you can run as a
+4:13
+kubernetes application or you can have
+4:16
+it as a standalone Docker container as
+4:20
+well and then from there the users are
+4:23
+talking to the gateways directly and
+4:26
+they're not talking externally to the
+4:28
+SAS and then there's of course
+4:30
+communication between the Gateway and
+4:32
+the SAS on outbound connections as you
+4:35
+can see here but what this does it makes
+4:38
+it so easy to scale and you can like I
+4:41
+said put a gayway in every private
+4:44
+Network that you own and not have to
+4:46
+worry about excessive Hardware or even
+4:49
+licensing costs so it scales very well
+4:52
+as your applications across the
+4:55
+different regions also scale next let's
+Secrets Engines
+4:58
+talk about secrets on the right hand
+5:00
+side I've got Vault it's running a vault
+5:03
+version
+5:04
+1.8.4 Community Edition and I'll show
+5:07
+you what is missing from the community
+5:10
+Edition in terms of the Enterprise in
+5:12
+just a little bit and on the left hand
+5:14
+side I have
+5:15
+ayus now let's jump into the secrets
+5:18
+engines first on vault and if you go and
+5:22
+enable new engine you'll see a few that
+5:24
+are available here in the UI and a note
+5:28
+on the UI the vault UI has always been
+5:30
+playing catchup with the API and the CLI
+5:33
+so there are things that will not show
+5:35
+up in the UI that you'd have to enable
+5:38
+or run from the CLI or the API so here
+5:42
+we've got the generic key value pair we
+5:44
+got pki certificates SSH Transit which
+5:47
+is the encryption of the service timed
+5:49
+onetime passwords ldap kubernetes we
+5:52
+have a few Dynamic Secrets here for the
+5:54
+clouds ho Cloud AWS Azure and gcp and
+5:59
+some
+6:00
+Dynamic secrets for infrastructure like
+6:02
+console number of databases Nomad and
+6:05
+rabid now if we jump into achillus real
+6:08
+quick and go to top here click on items
+6:12
+they're called items inside of achillus
+6:15
+so go to items and click new you'll see
+6:18
+quite a few encryption key this allows
+6:20
+you to create encryption as a service
+6:23
+you can use these encryption keys to
+6:25
+encrypt plain text and get back Cipher
+6:27
+text and vice versa their static Secrets
+6:30
+which is similar to the KV store for any
+6:33
+arbitrary Secrets there's rotated
+6:36
+Secrets which is not available in Vault
+6:39
+and really what these do is they allow
+6:41
+you to automatically on a schedule basis
+6:44
+or on demand rotate the secrets that
+6:49
+allow a keyless to connect to a third
+6:51
+party system so if you pick on AWS as a
+6:54
+cloud for example you can have a rotated
+6:57
+secret with AWS and this allows you to
+7:01
+rotate that secet on a scheduled basis
+7:04
+like I said but again the original
+7:07
+connection between Vault or aulus and
+7:10
+the system is not rotated in terms of
+7:12
+Vault automatically you would have to do
+7:14
+this manually but in terms of achillus
+7:16
+this is done automatically for you on a
+7:18
+schedule next we got Dynamic secrets and
+7:22
+there's a whole lot of them and if we
+7:23
+compare those in Aus to Vault I think
+7:27
+Aus has a bit more and you can see a
+7:29
+bunch of databases the databases are
+7:32
+also available here if we go and look at
+7:34
+the documentation so if you go to the
+7:36
+documentation for the secrets engines in
+7:40
+Vault you'll see under databases there
+7:42
+is a number of databases Cassandra elasa
+7:45
+search and flux TB there's a whole lot
+7:47
+of them here and then the clouds of
+7:49
+course AWS Azure gcp similar to this and
+7:53
+we got
+7:54
+kubernetes EK gke generic we have also
+7:57
+RDP which is quite interesting and we
+8:00
+also have artifactory Chef dockerhub
+8:02
+GitHub gitlab these are not available in
+8:05
+Vault Google workspaces ldap we saw that
+8:09
+in vault as well ping is not available
+8:10
+in Vault rabbit mq you can see here as
+8:13
+well veny all right so from a Secrets
+8:16
+perspective what I want you to take out
+8:18
+of this is that basically achillus has
+8:21
+pretty much everything that Vault has
+8:24
+and a little bit more so that's a key
+8:25
+thing to make sure that you are
+8:27
+comfortable if you are moving into to a
+8:29
+kilas that you're probably going to have
+8:31
+all the use cases covered uh from a
+8:34
+Secrets perspective now just to be fair
+8:37
+here and jump into Vault real quick I
+8:40
+said that the Vault UI isn't necessarily
+8:42
+the best and you can see some of the
+8:44
+secrets engines that are available
+8:46
+especially in the Enterprise version so
+8:49
+Key Management is available here which
+8:51
+is also available in ayus under
+8:55
+encryption in
+8:57
+KMS um and then we have Kip which is
+9:02
+also available here under Kip and keyis
+9:06
+um here is pki certificates we saw that
+9:10
+in both
+9:11
+systems and the transform engine is also
+9:14
+available if we go back and click on
+9:17
+items new so the
+9:20
+tokenizer is the transform engine pretty
+9:23
+much in Vault Transit we talked about
+9:26
+that one secret sync is the universal
+9:29
+Secrets connector inide of
+9:33
+achillus and you can see here the
+9:35
+universal Secrets connector like I said
+9:38
+everything in Vault is available in
+9:40
+aulus and even a little bit more let's
+Auth Methods
+9:42
+now move on and talk about
+9:44
+authentication methods and this is
+9:46
+really what enables a client whether a
+9:50
+user or uh a machine or application to
+9:54
+access the secret manager whether it's
+9:56
+Vault or ailles so in Vault these are
+10:00
+called off methods or authentication
+10:02
+methods under access and if you go in
+10:05
+here you'll see you can enable different
+10:08
+kinds of off methods Appo is considered
+10:12
+a machine authentication method which is
+10:16
+similar to a username and password and
+10:18
+is kind of a last resort if you don't
+10:20
+have an off method that is suitable you
+10:22
+see JW oidc T certificates usern names
+10:25
+and passwords whenever you talk about
+10:27
+off methods think about whether a human
+10:30
+is authenticating or a machine there's
+10:33
+some clouds as well so if you have a VM
+10:36
+running in AWS and E2 instance in AWS it
+10:39
+can authenticate directly into Vault
+10:43
+using the AWS off method which is a very
+10:46
+elegant way to solve the secret zero
+10:48
+problem but again you have to be on a
+10:50
+platform that provides an identity to
+10:52
+the resources that it spins up which is
+10:55
+the case in terms of cloud here there's
+10:57
+also kubernetes there's dap OCTA radius
+11:00
+so a number of off methods available in
+11:02
+Vault on the Aila side if we open up
+11:06
+here and go to users and O methods and
+11:09
+click on new you'll see there's a lot of
+11:12
+off methods available here as well we
+11:15
+have a generic API key we have a
+11:18
+universal ID which is incredible this is
+11:21
+my favorite when it comes to
+11:23
+authenticating machines that live on
+11:25
+Prem that live maybe in VMware that
+11:28
+VMware doesn't give an identity to the
+11:29
+resources it spins up so then this is a
+11:32
+very elegant solution and I think it's
+11:34
+even more elegant than the app roll that
+11:37
+Vault has there are other methods as
+11:39
+well for users email ldap IDC saml for
+11:43
+applications you can see certificates
+11:45
+care Bros
+11:47
+kubernetes ooth for cloud we've got AWS
+11:50
+Azure gcp oci so on now let's talk about
+Policies and Access Roles
+11:54
+the authorization mechanisms in both
+11:57
+systems so inv a these are called
+12:01
+policies ACL
+12:04
+policies and an ACL policy is taking the
+12:07
+form of something like this a path
+12:11
+everything in Vault is path-based and
+12:13
+then capabilities and you can see there
+12:15
+are multiple paths and and multiple
+12:18
+capabilities for exactly what you want
+12:20
+to do in Vault this tends to be one of
+12:23
+the hardest things I've seen with my
+12:25
+customers when it comes to working with
+12:28
+vault is understand exactly what is
+12:30
+happening and you need to understand the
+12:32
+API of Vault very well to identify the
+12:36
+actual path and what capabilities you'll
+12:38
+need to add for that path in your
+12:41
+policies if you don't do this many times
+12:44
+you're of course going to get a 401
+12:46
+error that you're not allowed to do
+12:47
+something or a 403 error which is fine
+12:50
+from a security point of view but again
+12:51
+I find it a little bit more difficult
+12:53
+than it needs to be to be able to secure
+12:56
+the uh system on the Aila side
+13:00
+we can go over to access roles and in
+13:03
+Access roles you can create any kind of
+13:06
+access Ro tie to an off method and set
+13:08
+some rules for it so if I pick on let's
+13:11
+say kubernetes role like this one you
+13:14
+see that it's tied to a particular
+13:16
+authentication method called kubernetes
+13:19
+it also is path-based so this one is
+13:21
+called my kubernetes off method and this
+13:24
+one has rules and the rules are
+13:27
+basically the permissions of what we're
+13:29
+allowed to do and in this case we're
+13:32
+allowed to read and list on this
+13:34
+particular path recursively for all
+13:37
+items I can add more permissions here
+13:40
+for different things like access roles
+13:42
+off methods targets secure remote access
+13:45
+and of course items for secrets and add
+13:47
+a path like I said and add the
+13:50
+permissions which can be create read
+13:52
+update delete e list or deny very
+13:54
+similar to the capabilities that we saw
+13:56
+in Vault but I find this a lot more
+13:58
+intuitive a lot easier to create and a
+14:00
+lot easier to find out where you might
+14:03
+be missing permissions missing
+14:05
+capabilities so I find that achillus
+14:08
+does a better job to create this
+14:11
+authorization mechanisms within the
+14:13
+system itself next is secure remote
+Secure Remote Access
+14:15
+access which is not available in Hashi
+14:18
+cor vault as the Vault product but it is
+14:21
+available in Hashi cor boundary and
+14:25
+there is some integration between of
+14:27
+course boundary and vault but I like how
+14:29
+this is a license feature in Aus and
+14:33
+pretty much integrated in the Aus
+14:36
+product as a whole and as you can see
+14:39
+here you can expose different access to
+14:42
+different resources I have SSH to a
+14:45
+couple of resources postgress SQL I can
+14:47
+directly access a database RDP into a
+14:50
+Windows machine and also Azure portal so
+14:54
+I can quickly SSH into one of my target
+14:58
+machines here here is this one and go
+15:00
+inad and get a
+15:04
+CLI and I'm already connected here and
+15:07
+of course I can go into this dat
+15:10
+postgress database as well I can connect
+15:13
+through with a web
+15:22
+portal and you kind of get the idea here
+15:30
+and now I'm in a Windows machine as you
+15:32
+can see so again it's great to see
+15:34
+secure remote access as part of the Aila
+15:37
+solution well integrated into the
+15:40
+product so when it comes to Secrets
+Conclusion
+15:42
+management hasor vault is a solid
+15:44
+solution but it comes with complexity
+15:46
+high costs and operational overhead ayus
+15:49
+on the other hand offers a streamlined
+15:51
+scalable alternative with easier
+15:54
+deployment built-in secure remote access
+15:56
+and a pricing model that helps you cut
+15:59
+costs without sacrificing security if
+16:01
+you're looking for a more efficient and
+16:03
+cost- effective way to manage your
+16:05
+secrets achillus might be a better fit I
+16:07
+encourage you to check it out
